@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/base}">
+<head>
+    <title th:text="${pageTitle}">Dang ky</title>
+</head>
+<body>
+<section layout:fragment="body">
+    <h1 class="page-title">Tao tai khoan</h1>
+    <form id="registerForm" class="card">
+        <label for="fullName">Ho ten</label>
+        <input id="fullName" name="fullName" type="text" maxlength="120" required>
+
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email" maxlength="180" autocomplete="email" required>
+
+        <label for="password">Mat khau</label>
+        <input id="password" name="password" type="password" minlength="8" maxlength="100" autocomplete="new-password" required>
+
+        <label for="phoneNumber">So dien thoai (khong bat buoc)</label>
+        <input id="phoneNumber" name="phoneNumber" type="tel" maxlength="30">
+
+        <label for="role">Vai tro</label>
+        <select id="role" name="role">
+            <option th:each="role : ${roles}"
+                    th:value="${role.name()}"
+                    th:selected="${role} == ${defaultRole}"
+                    th:text="${#strings.capitalize(role.name().toLowerCase())}">
+                parent
+            </option>
+        </select>
+
+        <div id="registerMessage" class="alert" hidden></div>
+
+        <div class="action-bar">
+            <button class="btn btn-primary" type="submit">Dang ky</button>
+            <a class="btn btn-outline" th:href="@{/login}">Quay lai dang nhap</a>
+        </div>
+        <p class="form-helper">Tai khoan gia su se o trang thai cho duyet truoc khi duoc kich hoat.</p>
+    </form>
+</section>
+<script>
+    const registerForm = document.getElementById('registerForm');
+    const registerMessage = document.getElementById('registerMessage');
+
+    registerForm.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        registerMessage.hidden = true;
+
+        const payload = {
+            fullName: registerForm.fullName.value.trim(),
+            email: registerForm.email.value.trim().toLowerCase(),
+            password: registerForm.password.value,
+            phoneNumber: registerForm.phoneNumber.value.trim() || null,
+            role: registerForm.role.value || null
+        };
+
+        try {
+            const response = await fetch('/api/v1/auth/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(payload)
+            });
+
+            const body = await response.json().catch(() => ({}));
+
+            if (!response.ok) {
+                const message = body.message || 'Dang ky that bai';
+                throw new Error(message);
+            }
+
+            registerMessage.hidden = false;
+            registerMessage.className = 'alert alert-success';
+            registerMessage.textContent = 'Dang ky thanh cong. Ban co the dang nhap ngay bay gio.';
+
+            console.log('Registration token', body.accessToken);
+            window.localStorage.setItem('tutorbooking.jwt', body.accessToken);
+            window.localStorage.setItem('tutorbooking.user', JSON.stringify(body.user));
+        } catch (error) {
+            registerMessage.hidden = false;
+            registerMessage.className = 'alert alert-error';
+            registerMessage.textContent = error.message;
+        }
+    });
+</script>
+</body>
+</html>

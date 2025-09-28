@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${pageTitle} ?: 'Tutor Booking'"></title>
+    <link rel="stylesheet" th:href="@{/css/main.css}">
+</head>
+<body>
+<header class="app-header">
+    <div class="container">
+        <a th:href="@{/}" class="brand">TutorBooking</a>
+        <nav>
+            <a th:href="@{/subjects}">M?n h?c</a>
+            <a th:href="@{/parents/dashboard}">Ph? huynh</a>
+            <a th:href="@{/tutors}">Gia s?</a>
+            <a th:href="@{/login}">??ng nh?p</a>
+        </nav>
+    </div>
+</header>
+<main class="container" layout:fragment="body">
+    <!-- n?i dung s? ???c ch?n t? c?c trang con -->
+</main>
+<footer class="app-footer">
+    <div class="container">
+        <p>&copy; <span th:text="${#dates.format(#dates.createNow(), 'yyyy')}"></span> TutorBooking. All rights reserved.</p>
+    </div>
+</footer>
+</body>
+</html>

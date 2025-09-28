@@ -1,0 +1,37 @@
+﻿<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${pageTitle}">Bảng điều khiển phụ huynh</title>
+</head>
+<body layout:decorate="~{layouts/base}">
+<section layout:fragment="body">
+    <h1 th:text="${pageTitle}">Bảng điều khiển phụ huynh</h1>
+    <div class="card" th:each="parent : ${parents}">
+        <h3 th:text="${parent.displayName() ?: parent.email()}"></h3>
+        <p>
+            <strong>Email:</strong>
+            <span th:text="${parent.email()}"></span>
+        </p>
+        <p th:if="${parent.contactPhone()}">
+            <strong>Điện thoại:</strong>
+            <span th:text="${parent.contactPhone()}"></span>
+        </p>
+        <p th:if="${parent.preferredContactMethod()}">
+            <strong>Hình thức liên hệ ưa thích:</strong>
+            <span th:text="${parent.preferredContactMethod()}"></span>
+        </p>
+        <div>
+            <strong>Học sinh:</strong>
+            <ul>
+                <li th:each="student : ${parent.students()}" th:text="${student.studentName()} + ' (' + (student.relationship() ?: 'Phụ trách') + ')'">
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div th:if="${parents == null || parents.isEmpty()}" class="alert alert-info">
+        Chưa có hồ sơ phụ huynh được tạo.
+    </div>
+</section>
+</body>
+</html>

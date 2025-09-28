@@ -1,0 +1,162 @@
+﻿:root {
+    --primary: #2a74dd;
+    --bg: #f5f7fb;
+    --text: #1f2933;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: "Segoe UI", Arial, sans-serif;
+    color: var(--text);
+    background-color: var(--bg);
+}
+
+.container {
+    width: min(1100px, 92%);
+    margin: 0 auto;
+}
+
+.app-header {
+    background: #fff;
+    border-bottom: 1px solid #e2e8f0;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.app-header .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem 0;
+}
+
+.app-header .brand {
+    font-weight: 700;
+    font-size: 1.25rem;
+    color: var(--primary);
+    text-decoration: none;
+}
+
+.app-header nav a {
+    margin-left: 1rem;
+    text-decoration: none;
+    color: var(--text);
+}
+
+.app-header nav a:hover {
+    color: var(--primary);
+}
+
+.hero {
+    padding: 3rem 0 2rem;
+}
+
+.hero h1 {
+    margin: 0 0 0.5rem;
+    font-size: 2.2rem;
+}
+
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.card {
+    background: #fff;
+    border-radius: 10px;
+    padding: 1.25rem;
+    box-shadow: 0 10px 25px rgba(15, 23, 42, 0.05);
+}
+
+.card h3 {
+    margin: 0 0 0.5rem;
+}
+
+.action-bar {
+    margin-top: 1.5rem;
+    display: flex;
+    gap: 0.75rem;
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.65rem 1rem;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.btn-primary {
+    background: var(--primary);
+    color: #fff;
+}
+
+.btn-outline {
+    border: 1px solid var(--primary);
+    color: var(--primary);
+    background: transparent;
+}
+
+.app-footer {
+    margin-top: 3rem;
+    padding: 1.5rem 0;
+    background: #fff;
+    border-top: 1px solid #e2e8f0;
+    text-align: center;
+}
+
+.alert {
+    padding: 0.75rem 1rem;
+    border-radius: 6px;
+}
+
+.alert-info {
+    background: #e3f2fd;
+    color: #0b5394;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.table thead {
+    background: #eff4fb;
+    text-align: left;
+}
+
+.table th, .table td {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+@media (max-width: 640px) {
+    .app-header .container {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+
+    .app-header nav a {
+        margin-left: 0;
+        margin-right: 1rem;
+    }
+}

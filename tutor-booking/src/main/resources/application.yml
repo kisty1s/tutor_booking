@@ -1,0 +1,31 @@
+spring:
+  application:
+    name: tutor-booking
+  datasource:
+    url: ${DB_URL:jdbc:sqlserver://LAPTOP-6GET3JFK\MAYAO;databaseName=tutorbooking;encrypt=true;trustServerCertificate=true;}
+    username: ${DB_USERNAME:tutor_app}
+    password: ${DB_PASSWORD:123}
+    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        format_sql: true
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "health,info"
+server:
+  error:
+    include-message: on_param
+
+auth:
+  jwt:
+    secret: ${JWT_SECRET:ChangeMeChangeMeChangeMeChangeMe}
+    expiration-minutes: ${JWT_EXPIRATION_MINUTES:120}

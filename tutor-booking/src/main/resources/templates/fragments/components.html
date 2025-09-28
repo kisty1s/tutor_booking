@@ -1,0 +1,17 @@
+﻿<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:fragment="hero(title, subtitle)">
+    <section class="hero">
+        <div class="container">
+            <h1 th:text="${title}"></h1>
+            <p th:text="${subtitle}" class="hero-subtitle"></p>
+        </div>
+    </section>
+</div>
+
+<div th:fragment="alert(type, message)">
+    <div th:class="${'alert alert-' + type}" th:text="${message}"></div>
+</div>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/base}">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${pageTitle}">Tutor Booking</title>
+    <link rel="stylesheet" th:href="@{/css/main.css}">
+</head>
+<body>
+<section layout:fragment="body">
+    <section th:replace="fragments/components :: hero('Nen tang dat lich gia su chuyen nghiep', 'Tim gia su phu hop cho con ban chi trong vai lan nhap chuot.')"></section>
+    <section class="card-grid" th:if="${featuredSubjects != null and !#lists.isEmpty(featuredSubjects)}">
+        <div class="card" th:each="subject : ${featuredSubjects}">
+            <h3 th:text="${subject.name()}"></h3>
+            <p th:text="${subject.description() ?: 'Dang cap nhat mo ta'}"></p>
+            <div class="action-bar">
+                <a class="btn btn-primary" th:href="@{'/subjects'(code=${subject.code()})}">Xem chi tiet</a>
+                <a class="btn btn-outline" th:href="@{'/tutors'(subject=${subject.id()})}">Tim gia su</a>
+            </div>
+        </div>
+    </section>
+    <div th:if="${featuredSubjects == null or #lists.isEmpty(featuredSubjects)}" class="alert alert-info">
+        Chua co mon hoc nao. Vui long them du lieu de hien thi tren trang chu.
+    </div>
+</section>
+</body>
+</html>

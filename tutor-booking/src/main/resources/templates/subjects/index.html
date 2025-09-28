@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${pageTitle}">Môn học</title>
+</head>
+<body layout:decorate="~{layouts/base}">
+<section layout:fragment="body">
+    <h1 th:text="${pageTitle}">Danh sách môn học</h1>
+    <table class="table" th:if="${subjects != null && !subjects.isEmpty()}">
+        <thead>
+        <tr>
+            <th>Mã</th>
+            <th>Tên môn</th>
+            <th>Mô tả</th>
+            <th>Trạng thái</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="subject : ${subjects}">
+            <td th:text="${subject.code()}"></td>
+            <td th:text="${subject.name()}"></td>
+            <td th:text="${subject.description() ?: 'Đang cập nhật'}"></td>
+            <td th:text="${subject.active() ? 'Đang mở' : 'Tạm dừng'}"></td>
+        </tr>
+        </tbody>
+    </table>
+    <div th:if="${subjects == null || subjects.isEmpty()}" class="alert alert-info">
+        Chưa có môn học nào.
+    </div>
+</section>
+</body>
+</html>

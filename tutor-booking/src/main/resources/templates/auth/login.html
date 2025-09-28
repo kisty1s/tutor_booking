@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/base}">
+<head>
+    <title th:text="${pageTitle}">Dang nhap</title>
+</head>
+<body>
+<section layout:fragment="body">
+    <h1 class="page-title">Dang nhap</h1>
+    <form id="loginForm" class="card">
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email" autocomplete="email" required>
+
+        <label for="password">Mat khau</label>
+        <input id="password" name="password" type="password" autocomplete="current-password" required>
+
+        <div id="loginMessage" class="alert" hidden></div>
+
+        <div class="action-bar">
+            <button class="btn btn-primary" type="submit">Dang nhap</button>
+            <a class="btn btn-outline" th:href="@{/register}">Tao tai khoan</a>
+        </div>
+        <p class="form-helper">Frontend se goi API dang nhap de nhan JWT va luu tru tam thoi.</p>
+    </form>
+</section>
+<script>
+    const loginForm = document.getElementById('loginForm');
+    const loginMessage = document.getElementById('loginMessage');
+
+    loginForm.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        loginMessage.hidden = true;
+
+        const payload = {
+            email: loginForm.email.value.trim(),
+            password: loginForm.password.value
+        };
+
+        try {
+            const response = await fetch('/api/v1/auth/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(payload)
+            });
+
+            const body = await response.json().catch(() => ({}));
+
+            if (!response.ok) {
+                throw new Error(body.message || 'Dang nhap that bai');
+            }
+
+            loginMessage.hidden = false;
+            loginMessage.className = 'alert alert-success';
+            loginMessage.textContent = 'Dang nhap thanh cong. Token da duoc luu localStorage.';
+
+            console.log('JWT token', body.accessToken);
+            window.localStorage.setItem('tutorbooking.jwt', body.accessToken);
+            window.localStorage.setItem('tutorbooking.user', JSON.stringify(body.user));
+        } catch (error) {
+            loginMessage.hidden = false;
+            loginMessage.className = 'alert alert-error';
+            loginMessage.textContent = error.message;
+        }
+    });
+</script>
+</body>
+</html>
