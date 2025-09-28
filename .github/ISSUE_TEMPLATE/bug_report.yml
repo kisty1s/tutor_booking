@@ -1,0 +1,35 @@
+name: Bug Report
+description: Báo cáo lỗi hoặc sự cố
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Mô tả lỗi
+  - type: textarea
+    id: description
+    attributes:
+      label: Mô tả chi tiết
+      description: Hãy mô tả lỗi, cách tái hiện, và kết quả mong đợi.
+      placeholder: Mô tả lỗi...
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Các bước tái hiện
+      description: Liệt kê các bước cụ thể để tái hiện lỗi.
+      placeholder: 1. ...
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Phiên bản
+      description: Backend/mobile/app version
+      placeholder: v1.0.0
+      required: false
+  - type: textarea
+    id: logs
+    attributes:
+      label: Log liên quan
+      description: Đính kèm log hoặc ảnh chụp màn hình nếu có.
+      required: false

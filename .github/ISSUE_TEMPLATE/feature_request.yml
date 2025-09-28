@@ -1,0 +1,27 @@
+name: Feature Request
+description: Đề xuất tính năng mới
+labels: [enhancement]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Đề xuất tính năng
+  - type: textarea
+    id: description
+    attributes:
+      label: Mô tả chi tiết
+      description: Hãy mô tả rõ tính năng mong muốn, lý do cần thiết.
+      placeholder: Mô tả tính năng...
+      required: true
+  - type: textarea
+    id: solution
+    attributes:
+      label: Giải pháp đề xuất
+      description: Nếu có ý tưởng về giải pháp, hãy ghi rõ.
+      required: false
+  - type: input
+    id: impact
+    attributes:
+      label: Ảnh hưởng
+      description: Tác động tới hệ thống, người dùng, v.v.
+      required: false

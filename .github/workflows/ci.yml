@@ -15,7 +15,7 @@ jobs:
         image: mcr.microsoft.com/mssql/server:2022-latest
         env:
           ACCEPT_EULA: "Y"
-          SA_PASSWORD: "YourStrong!Passw0rd"
+          SA_PASSWORD: ${{ secrets.SQLSERVER_PASSWORD }}
         ports:
           - 1433:1433
         options: >-
@@ -44,7 +44,7 @@ jobs:
         env:
           DB_URL: jdbc:sqlserver://localhost:1433;databaseName=tutorbooking;encrypt=true;trustServerCertificate=true;
           DB_USERNAME: sa
-          DB_PASSWORD: YourStrong!Passw0rd
+          DB_PASSWORD: ${{ secrets.SQLSERVER_PASSWORD }}
         run: ./mvnw -q test
 
       - name: Android Java Module Tests
